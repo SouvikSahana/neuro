@@ -9,6 +9,13 @@ import Register from './pages/Register'
 import Forgot from './pages/Forgot'
 import UploadImage from './pages/UploadImage'
 import Images from './pages/Images'
+import Profile from "./pages/Profile"
+import ReportPage from './pages/ReportPage'
+import ReportList from './pages/ReportList'
+import PrescriptionPage from "./pages/PrescriptionPage"
+import PrescriptionList from './pages/PrescriptionList'
+import BillPage from './pages/BillPage'
+import BillList from "./pages/BillList"
 
 function App() {
   const [state,dispatch]= useStateValue()
@@ -43,6 +50,16 @@ function App() {
         <Route path="/forgot" element={<Forgot/>}></Route>
         <Route path="/uploadimage" element={<UploadImage/>}></Route>
         <Route path="/images" element={<Images/>} ></Route>
+        <Route path="/profile" element={<Profile/>} ></Route>
+        <Route path="/report/all" element={<ReportList/>}></Route>
+        <Route path="/report/id/:reportId" element={<ReportPage/>}></Route>
+
+        <Route path="/prescription/all" element={<PrescriptionList/>}></Route>
+        <Route path="/prescription/id/:prescriptionId" element={<PrescriptionPage/>}></Route>
+
+        <Route path="/bill/all" element={<BillList/>}></Route>
+        <Route path="/bill/id/:billId" element={<BillPage/>}></Route>
+
       </Routes>
     // </Router>
   )

@@ -1,4 +1,4 @@
-const {MongoClient,GridFSBucket}= require("mongodb")
+const {MongoClient,GridFSBucket,ObjectId}= require("mongodb")
 const express= require("express")
 const multer=require("multer")
 const fs=require("fs")
@@ -44,7 +44,7 @@ router.post("/upload",[authenticate,upload.array("img")],async(req,res)=>{
                     console.log("Error in this upload")
                 }
             }
-            res.status(200).send({message:"Images uploaded successfully"})
+            res.status(200).send({message:"Images uploaded successfully",id:media})
         })
     }catch(error){
         res.status(500).send({message: error?.message})
@@ -91,7 +91,7 @@ router.get("/files",authenticate,async(req,res)=>{
             if(files?.length>0){
                 res.status(200).send({data:files,message:"Images fetched successfully"})
             }else{
-                throw new Error("No images found with this user")
+                res.status(200).send({data:[],message:"No images found with this user"})
             }
         })
     }catch(error){
@@ -114,15 +114,43 @@ router.post("/update/:image",authenticate,async(req,res)=>{
             if(file?.metadata?.email!=req?.user?.email){
                 throw new Error("Your are not owner of this media")
             }
-            await collection.findOneAndUpdate({_id:file?._id},{...req?.body},{merge:true})
-
+            await collection.findOneAndUpdate(
+                { filename: name },
+                { $set: { 'metadata': { ...file?.metadata, ...req?.body?.metadata } } }
+              );
                 res.status(200).send({message:"Image data updated successfully"})
         })
     }catch(error){
         res.status(500).send({message:error?.message})
+        console.log(error)
     }
 })
 
+
 //delete image
+router.delete("/delete/:image",authenticate,async(req,res)=>{
+    try{
+        await MongoClient.connect(uri).then(async(client)=>{
+            const db=await client.db()
+            const bucket= new GridFSBucket(db,{bucketName:"images"})
+            const collection=await db.collection("images.files")
+            const name= req.params?.image
+            const file=await collection.findOne({filename:name})
+            if(!file){
+                throw new Error("There is no media with this name")
+            }
+            if(file?.metadata?.email!=req?.user?.email){
+                throw new Error("Your are not owner of this media")
+            }
+            // await collection.findOneAndDelete({filename:name})
+            await bucket.delete(new ObjectId(file?._id))
+                res.status(200).send({message:"Image deleted successfully"})
+        })
+    }catch(error){
+        res.status(500).send({message:error?.message})
+        console.log(error)
+    }
+})
+
 
 module.exports=router

@@ -17,6 +17,21 @@ app.use("/auth",authRouter)
 const imageRouter= require("./routes/image.router")
 app.use("/media",imageRouter)
 
+const processRouter= require("./routes/process.router")
+app.use("/process",processRouter)
+
+const crawlRouter= require("./routes/crawler.router")
+app.use("/crawl",crawlRouter)
+
+const reportRouter= require("./routes/report.router")
+app.use("/report",reportRouter)
+
+const prescriptionRouter= require("./routes/prescription.router")
+app.use("/prescription",prescriptionRouter)
+
+const billRouter= require("./routes/bill.router")
+app.use("/bill",billRouter)
+
 const port= process.env.PORT || 5000
 app.listen(port,()=>{
     console.log("Server is running...")

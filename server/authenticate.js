@@ -8,7 +8,8 @@ const authenticate=async (req,res,next)=>{
         if(!token){
             res.status(404).send({error:"Token is not found"})
         }else{
-            const {userId,userEmail}=await getUserFromToken(token)
+            try{
+                const {userId,userEmail}=await getUserFromToken(token)
             const user=await userService.getUser(userId,userEmail)
             req.user= {
                 _id: user?._id,
@@ -19,6 +20,10 @@ const authenticate=async (req,res,next)=>{
                 address: user?.address,
                 createdAt: user?.createdAt
             }
+            }catch(error){
+                throw new Error(error?.message)
+            }
+            
         }
     }catch(error){
         res.status(500).send({error: error.message})
