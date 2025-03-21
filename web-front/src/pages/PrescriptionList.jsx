@@ -64,7 +64,7 @@ const PrescriptionList = () => {
                       {new Date(pres?.date).toLocaleDateString()}
                     </td>
                     <td className="px-4 py-2 border text-center">
-                      {pres?.diseases.join(" ,")|| "N/A"}
+                      {pres?.diseases.join(", ")|| "N/A"}
                     </td>
                     <td className="px-4 py-2 border text-center">
                       <button

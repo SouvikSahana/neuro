@@ -4,6 +4,7 @@ const {ObjectId,MongoClient,GridFSBucket}= require("mongodb")
 const getPrescription=async(user)=>{
     try{
         const prescriptions= await Prescription.find({user})
+       
         return  prescriptions
     }catch(error){
         throw new Error(error?.message)
@@ -28,7 +29,7 @@ const getSpecificPrescription=async(user,prescriptionId)=>{
 
 const updatePrescription= async(userId,data)=>{
     try{
-        const {_id,image,user,...updatedData}= data
+        const {_id,image,user,processedAt,...updatedData}= data
         if(!_id){
             throw new Error("No id provided to update")
         }

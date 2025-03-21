@@ -32,6 +32,12 @@ app.use("/prescription",prescriptionRouter)
 const billRouter= require("./routes/bill.router")
 app.use("/bill",billRouter)
 
+const symptompRouter= require("./routes/symptomp.router")
+app.use("/symptomp",symptompRouter)
+
+const dailyFoodRouter= require("./routes/dailyFood.router")
+app.use("/dailyfood",dailyFoodRouter)
+
 const port= process.env.PORT || 5000
 app.listen(port,()=>{
     console.log("Server is running...")

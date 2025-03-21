@@ -16,6 +16,13 @@ import PrescriptionPage from "./pages/PrescriptionPage"
 import PrescriptionList from './pages/PrescriptionList'
 import BillPage from './pages/BillPage'
 import BillList from "./pages/BillList"
+import UploadSymtomp from './pages/UploadSymtomp'
+import SymptompList from './pages/SymptompList'
+import SymptompPage from './pages/SymptompPage'
+import UploadDailyFood from './pages/UploadDailyFood'
+import DailyFoodList from './pages/DailyFoodList'
+import DailyFoodPage from './pages/DailyFoodPage'
+import Test from "./pages/Test"
 
 function App() {
   const [state,dispatch]= useStateValue()
@@ -60,6 +67,15 @@ function App() {
         <Route path="/bill/all" element={<BillList/>}></Route>
         <Route path="/bill/id/:billId" element={<BillPage/>}></Route>
 
+        <Route path="/uploadsymptomp" element={<UploadSymtomp/>} ></Route>
+        <Route path="/symptomp/all" element={<SymptompList/>} ></Route>
+        <Route path="/symptomp/id/:id" element={<SymptompPage/>}></Route>
+
+        <Route path="/uploaddailyfood" element={<UploadDailyFood/>} ></Route>
+        <Route path="/dailyfood/all" element={<DailyFoodList/>} ></Route>
+        <Route path="/dailyfood/id/:id" element={<DailyFoodPage/>}></Route>
+
+        <Route path="/test" element={<Test/>}></Route>
       </Routes>
     // </Router>
   )

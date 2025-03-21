@@ -27,7 +27,7 @@ const getSpecificReport=async(user,reportId)=>{
 }
 const updateReport= async(userId,data)=>{
     try{
-        const {_id,image,user,...updatedData}= data
+        const {_id,image,user,processedAt,...updatedData}= data
         if(!_id){
             throw new Error("No id provided to update")
         }

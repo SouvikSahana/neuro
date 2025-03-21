@@ -64,7 +64,8 @@ const ReportPage = () => {
   // Save Updated Report
   const handleSave = async () => {
     try {
-      // await axios.put(`/api/reports/${reportId}`, formData);
+      // console.log(formData)
+      await api.post(`/report/update`, formData);
       setReport(formData);
       setEditing(false);
     } catch (error) {
@@ -187,7 +188,7 @@ const ReportPage = () => {
             <>
               <button
                 className="bg-gray-500 text-white px-4 py-2 rounded-md mr-2"
-                onClick={() => setEditing(false)}
+                onClick={() => {setEditing(false);setFormData(report)}}
               >
                 Cancel
               </button>

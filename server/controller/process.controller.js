@@ -3,7 +3,7 @@ const {extractTextFromImage} =require("../services/process.service")
 const extractData=async(req,res)=>{
     try{
         const image= req.params?.image
-        const response=await extractTextFromImage(image,req?.user?._id)
+        const response=await extractTextFromImage(image,req?.user?._id,req?.user?.email)
         // console.log(await response)
         res.status(200).send({message:await response})
     }catch(error){

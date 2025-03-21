@@ -52,24 +52,38 @@ const prompts=new Map([
         remark: String
         extract and only give me data in json format like this and no other text other than json data`]
 ])
-const extractTextFromImage = async (imageFilename,user) => {
+const extractTextFromImage = async (imageFilename,user,email) => {
     try {
+        if(!email){
+            throw new Error("There is authentication failed")
+        }
+        
         const client = new MongoClient(mongoURI);
         await client.connect();
         const db = client.db();
         const bucket = new GridFSBucket(db, { bucketName });
         const collection= await db.collection("images.files")
         const isFIle=await collection.findOne({filename:imageFilename})
-        const promptText= prompts.get(isFIle?.metadata?.type)
-        if(!promptText){
-            throw new Error("This is not for processing")
-        }
+        
+        
+       
         if(!isFIle){
+            client.close();
             throw new Error("There is no image with this name")
         }
         if(isFIle?.metadata?.isProcessed){
             throw new Error("This image is already processed")
         }
+        if(isFIle?.metadata?.email!=email){
+            client.close();
+            throw new Error("You are not owner of this file")
+        }
+        const promptText= prompts.get(isFIle?.metadata?.type)
+        if(!promptText){
+            client.close();
+            throw new Error("This is not for processing")
+        }
+        
         return new Promise((resolve, reject) => {
             const downloadStream = bucket.openDownloadStreamByName(imageFilename);
 
@@ -87,6 +101,7 @@ const extractTextFromImage = async (imageFilename,user) => {
                     //     tessdata: '/usr/local/share/tessdata', 
                     //   });
                     if (imageBuffer.length === 0) {
+                        client.close();
                         throw new Error('Image buffer is empty');
                     }
 
@@ -94,6 +109,7 @@ const extractTextFromImage = async (imageFilename,user) => {
                     const dataUrl = `data:image/jpeg;base64,${base64Image}`;
 
                     if (!clientMistral.chat || typeof clientMistral.chat.complete !== 'function') {
+                        client.close();
                         throw new Error('Client does not have a chat.complete method');
                     }
                     const chatResponse = await clientMistral.chat.complete({

@@ -3,3 +3,5 @@
 /web-front/node_modules
 /server/node_modules
 /server/.env
+
+/web-front/src/pages/Test.jsx

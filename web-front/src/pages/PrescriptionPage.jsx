@@ -15,6 +15,7 @@ const PrescriptionPage = () => {
       const response = await api.get(`/prescription/id/${prescriptionId}`);
       setPrescription(response.data?.data);
       setFormData(response.data?.data);
+      // console.log(response?.data?.data)
     } catch (error) {
       console.error("Error fetching prescription:", error);
     }
@@ -22,7 +23,6 @@ const PrescriptionPage = () => {
 
   useEffect(() => {
     const url = new URL(window.location.href).pathname.split("/");
-    console.log(url)
     setPrescriptionId(url[url.length - 1]);
   }, []);
 
@@ -71,7 +71,7 @@ const PrescriptionPage = () => {
   // Save Updated Prescription
   const handleSave = async () => {
     try {
-      await api.put(`/prescription/id/${prescriptionId}`, formData);
+      await api.post(`/prescription/update`, formData);
       setPrescription(formData);
       setEditing(false);
     } catch (error) {
@@ -197,7 +197,7 @@ const PrescriptionPage = () => {
             <>
               <button
                 className="bg-gray-500 text-white px-4 py-2 rounded-md mr-2"
-                onClick={() => setEditing(false)}
+                onClick={() => {setEditing(false);setFormData(prescription)}}
               >
                 Cancel
               </button>
