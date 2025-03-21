@@ -179,7 +179,7 @@ const SymptompPage = () => {
     <div className="p-8 bg-gray-100 min-h-screen flex flex-col gap-4 md:flex-row">
       <div>
         {/* Display Symptom Images */}
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-4 justify-center">
           {formData?.images?.length > 0 ? (
             formData.images.map((img, index) => (
               <div key={index} className="relative">
@@ -212,7 +212,7 @@ const SymptompPage = () => {
         {/* Upload New Images Section */}
         {editing && (
           <div>
-          <form ref={formRef} className="mt-4 flex flex-col gap-2">
+          <form ref={formRef} className="mt-4 flex flex-col gap-2 ">
           <label htmlFor="img" className='p-3 text-white bg-[#06074C] rounded-[7px]  cursor-pointer max-w-[300px]'>Upload <FileUploadIcon /></label>
             <input
               type="file"

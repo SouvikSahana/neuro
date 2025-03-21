@@ -23,6 +23,7 @@ import UploadDailyFood from './pages/UploadDailyFood'
 import DailyFoodList from './pages/DailyFoodList'
 import DailyFoodPage from './pages/DailyFoodPage'
 import Test from "./pages/Test"
+import Navigation from './component/Navigation'
 
 function App() {
   const [state,dispatch]= useStateValue()
@@ -50,6 +51,8 @@ function App() {
 
   return (
     // <Router>
+    <div>
+      <Navigation/>
       <Routes>
         <Route path="/" element={<Home/>} ></Route>
         <Route path="/login" element={<Login/>} ></Route>
@@ -77,6 +80,7 @@ function App() {
 
         <Route path="/test" element={<Test/>}></Route>
       </Routes>
+      </div>
     // </Router>
   )
 }

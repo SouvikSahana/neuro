@@ -3,7 +3,7 @@ const {ObjectId,MongoClient,GridFSBucket}= require("mongodb")
 
 const getReports=async(user)=>{
     try{
-        const reports= await Report.find({user})
+        const reports= await Report.find({user})?.sort({date:-1})
         return  reports
     }catch(error){
         throw new Error(error?.message)

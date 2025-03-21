@@ -18,6 +18,14 @@ const getSymptomps=async(req,res)=>{
         return res.status(500).send({message: error?.message})
     }
 }
+const getDistinctSymptomps=async(req,res)=>{
+    try{
+        const response=await symptompService.getDistinctSymptomps(req?.user?._id)
+        return res.status(200).send({message:"Symptomps fetched successfully",data:response})
+    }catch(error){
+        return res.status(500).send({message: error?.message})
+    }
+}
 
 const getSpecificSymptomp=async(req,res)=>{
     // console.log(req?.params)
@@ -46,4 +54,5 @@ const updateSymptomp=async(req,res)=>{
         return res.status(500).send({message:error?.message})
     }
 }
-module.exports={createSymptomp,getSymptomps,getSpecificSymptomp, deleteSymptomp, updateSymptomp}
+
+module.exports={createSymptomp,getSymptomps,getSpecificSymptomp, deleteSymptomp, updateSymptomp,getDistinctSymptomps}

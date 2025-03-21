@@ -34,7 +34,7 @@ const reportSchema= new mongoose.Schema({
     },
     values:[
         {testName:String,
-            testValue:Number,
+            testValue:String,
             testUnit:String,
             testMethod:String
         }

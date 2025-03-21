@@ -176,7 +176,7 @@ const DailyFoodPage = () => {
     <div className="p-8 bg-gray-100 min-h-screen flex flex-col gap-4 md:flex-row">
       <div>
         {/* Display Food Images */}
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-4 justify-center">
           {formData?.images?.length > 0 ? (
             formData.images.map((img, index) => (
               <div key={index} className="relative">

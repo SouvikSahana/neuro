@@ -3,13 +3,28 @@ const {ObjectId,MongoClient,GridFSBucket}= require("mongodb")
 
 const getPrescription=async(user)=>{
     try{
-        const prescriptions= await Prescription.find({user})
+        const prescriptions= await Prescription.find({user})?.sort({date:-1})
        
         return  prescriptions
     }catch(error){
         throw new Error(error?.message)
     }
 }
+const getDistinctMedicines = async (user) => {
+    try {
+      const prescriptions = await Prescription.find({ user });
+  
+      // Extract all medicines from prescriptions
+      const allMedicines = prescriptions.flatMap((pres) => pres?.medicines || []);
+ 
+      // Get unique medicine names using Set
+      const distinctMedicines = [...new Set(allMedicines)];
+  
+      return distinctMedicines;
+    } catch (error) {
+      throw new Error(error?.message);
+    }
+  };
 
 const getSpecificPrescription=async(user,prescriptionId)=>{
     try{
@@ -105,4 +120,4 @@ const deletePrescriptionAndImage=async(id,userId)=>{
         throw new Error(error?.message)
     }
 }
-module.exports={getPrescription, getSpecificPrescription, updatePrescription,deletePrescription,deletePrescriptionAndImage}
+module.exports={getPrescription, getSpecificPrescription, updatePrescription,deletePrescription,deletePrescriptionAndImage, getDistinctMedicines}

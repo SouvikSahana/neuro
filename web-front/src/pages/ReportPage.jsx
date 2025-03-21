@@ -102,7 +102,7 @@ const ReportPage = () => {
 
   return (
     <div className="p-8 bg-gray-100 min-h-screen flex flex-col gap-4 md:flex-row">
-      <div>
+      <div >
         <img src={API_BASE_URL + '/media/img/' + report?.image + '?token=' + localStorage.getItem('jwt')}
               alt={report?.image} className="max-w-[300px] mx-auto" />
         <div className="flex flex-row justify-evenly mt-4">

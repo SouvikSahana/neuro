@@ -74,7 +74,7 @@ const Images = () => {
       <div className="flex flex-wrap justify-center gap-4 ">
         {!images?.length>0 && <p className='text-gray-500 text-lg '>No images found. Please upload first</p>}
         {images?.map((ima, index) => (
-          <div key={index} className="flex flex-col gap-2 bg-white p-4 rounded-lg shadow-lg relative flex-wrap">
+          <div key={index} className={(ima?.metadata?.isProcessed || !["report","bill","prescription"].includes(ima?.metadata?.type))?"flex flex-col gap-2 bg-green-100 p-4 rounded-lg shadow-lg relative flex-wrap":"flex flex-col gap-2 bg-red-100 p-4 rounded-lg shadow-lg relative flex-wrap"}>
             <div className='flex-1 flex justify-evenly flex-col'>
             <img
               src={API_BASE_URL + '/media/img/' + ima?.filename + '?token=' + localStorage.getItem('jwt')}
@@ -83,9 +83,9 @@ const Images = () => {
               onClick={() => setSelectedImage(ima)}
             />
             <div className="text-sm text-gray-700">
-              <div>
+              {/* <div>
                 <span className='font-bold'>isProcessed: </span> {String(ima?.metadata?.isProcessed)}
-              </div>
+              </div> */}
               <div>
                 <span className='font-bold'>Type: </span> {ima?.metadata?.type}
               </div>
@@ -94,20 +94,20 @@ const Images = () => {
               </div>
             </div>
             </div>
-            <div className="flex justify-between mt-2">
-              <button
+            {(!ima?.metadata?.isProcessed && ["report","bill","prescription"].includes(ima?.metadata?.type)) && <div className="flex justify-between mt-2">
+              {/* <button
                 className="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600 transition"
                 onClick={() => deleteImage(ima.filename)}
               >
                 Delete
-              </button>
+              </button> */}
               <button
                 className="bg-yellow-500 text-white px-2 py-1 rounded-md hover:bg-yellow-600 transition"
                 onClick={() => handleEditClick(ima)}
               >
                 Edit
               </button>
-            </div>
+            </div>}
           </div>
         ))}
       </div>

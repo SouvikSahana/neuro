@@ -5,7 +5,7 @@ const {ObjectId,MongoClient,GridFSBucket}= require("mongodb")
 
 const getBills=async(user)=>{
     try{
-        const bills= await Bill.find({user})
+        const bills= await Bill.find({user})?.sort({date:-1})
         return  bills
     }catch(error){
         throw new Error(error?.message)

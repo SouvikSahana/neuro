@@ -8,7 +8,14 @@ const getPrescriptions=async(req,res)=>{
         return res.status(500).send({message:error?.message})
     }
 }
-
+const getDistinctMedicines=async(req,res)=>{
+    try{
+        const response=await prescriptionService.getDistinctMedicines(req?.user?._id)
+        return res.status(200).send({message:"Prescriptions fetched successfully",data:await response})
+    }catch(error){
+        return res.status(500).send({message:error?.message})
+    }
+}
 const getSpecificPrescription=async(req,res)=>{
     try{
         const prescriptionId= req.params?.prescriptionId
@@ -47,4 +54,4 @@ const deletePrescriptionAndImage=async (req,res)=>{
         return res.status(500).send({message:error?.message})
     }
 }
-module.exports= {getPrescriptions, getSpecificPrescription, deletePrescription,deletePrescriptionAndImage, updatePrescription }
+module.exports= {getPrescriptions, getSpecificPrescription, deletePrescription,deletePrescriptionAndImage, updatePrescription, getDistinctMedicines }

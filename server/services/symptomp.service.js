@@ -167,12 +167,27 @@ const deleteSymptomp=async(id)=>{
 
 const getSymptomps= async(user)=>{
     try{
-        const symptomps= await Symptomp.find({user})
+        const symptomps= await Symptomp.find({user}).sort({time: -1})
         return symptomps
     }catch(error){
         throw new Error(error?.message)
     }
 }
+const getDistinctSymptomps = async (user) => {
+    try {
+      const symptomps = await Symptomp.find({ user });
+  
+      // Extract all medicines from prescriptions
+      const allSymps = symptomps.flatMap((pres) => pres?.symps || []);
+ 
+      // Get unique medicine names using Set
+      const distinctSymptomps = [...new Set(allSymps)];
+  
+      return distinctSymptomps
+    } catch (error) {
+      throw new Error(error?.message);
+    }
+  };
 
 const getSpecificSymptomp=async(user,id)=>{
     try{
@@ -190,4 +205,4 @@ const getSpecificSymptomp=async(user,id)=>{
 }
 
 
-module.exports={createSymptomp, deleteSymptomp,getSymptomps,getSpecificSymptomp, updateSymptomp}
+module.exports={createSymptomp, deleteSymptomp,getSymptomps,getSpecificSymptomp, updateSymptomp, getDistinctSymptomps}
