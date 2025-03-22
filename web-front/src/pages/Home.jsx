@@ -28,8 +28,16 @@ const Home = () => {
       path:"/symptomp/all"
     },
     {
+      title:"Upload Symptomps",
+      path:"/uploadsymptomp"
+    },
+    {
       title:"Daily Food Intake",
       path:"/dailyfood/all"
+    },
+    {
+      title:"Add Daily Food",
+      path:"/duploaddailyfood"
     },
     {
       title:"Images",

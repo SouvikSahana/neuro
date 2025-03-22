@@ -34,7 +34,8 @@ router.post("/upload",[authenticate,upload.array("img")],async(req,res)=>{
                     metadata:{
                         type: type,
                         isProcessed: false,
-                        email: req?.user?.email
+                        email: req?.user?.email,
+                        user: req?.user?._id
                     }
                 }).on("finish",()=>{
                     // media.push(id)
